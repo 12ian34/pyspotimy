@@ -22,21 +22,25 @@ sp = spotipy.Spotify(
 
 def get_top_tracks_data(term):
 
+    # set initial variables
     top_tracks = {}
     rank = 1
 
+    # validate term
     if term in ['short', 'medium', 'long']:
         print('chosen term: {}'.format(term))
     else:
         print('ERROR: invalid term. Pick "short", "medium" or "long"')
         # raise.sysExit()
 
+    # fetch top tracks via spotipy client
     response = sp.current_user_top_tracks(
         limit=100,
         offset=0,
         time_range='{}_term'.format(term)
     )
 
+    # parse response data into new dict
     for item in response['items']:
         top_tracks[rank] = {}
 
@@ -46,6 +50,7 @@ def get_top_tracks_data(term):
         top_tracks[rank]['artist'] = artists
         top_tracks[rank]['title'] = title
 
+        # print out each top track
         print('{} - {} - {} - {}'.format(term, rank, artists, title))
 
         rank += 1
@@ -53,6 +58,7 @@ def get_top_tracks_data(term):
     return top_tracks
 
 
+# run for each term
 top_tracks_short_term = get_top_tracks_data('short')
 top_tracks_medium_term = get_top_tracks_data('medium')
 top_tracks_long_term = get_top_tracks_data('long')
