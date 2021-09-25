@@ -6,4 +6,5 @@ setup(name='pyspotimy',
       install_requires=[
           'requests==2.25.1',
           'autopep8==1.5.7',
+          'spotipy==2.19.0'
       ])
